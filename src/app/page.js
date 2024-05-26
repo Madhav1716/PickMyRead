@@ -32,16 +32,22 @@ function Home() {
             <i className="fab fa-telegram"></i>
           </a>
         </div>
-        <a className="logo">BOOKSAGA</a>
+        <a className="logo">
+          <Image
+            src={darkTheme ? "/favicon-light.ico" : "/favicon-dark.ico"}
+            alt="PickMyRead Logo"
+            width={200}
+            height={200}
+            className="favicon"
+          />
+        </a>
         <label className="swap swap-rotate">
-          {/* this hidden checkbox controls the state */}
           <input
             type="checkbox"
             className="theme-controller"
             value="synthwave"
-            onChange={toggleTheme} // Call toggleTheme function when checkbox changes
+            onChange={toggleTheme}
           />
-          {/* sun icon */}
           <svg
             className="swap-off fill-current w-8 h-10"
             xmlns="http://www.w3.org/2000/svg"
@@ -63,11 +69,11 @@ function Home() {
         </div>
       </div>
       <div className="Heading">
-        <h1 className="Welcome">Welcome to Booksaga</h1>
-        <h3 className="Tagline">Your literary journey begins.</h3>
+        <h1 className="Welcome">Welcome to PickMyRead</h1>
+        <h3 className="Tagline">Your Gateway to Literary Exploration!</h3>
         <Link
           href="/Categories"
-          className="btn btn-wide btn-primary"
+          className="btn btn-wide btn-primary btn-Start"
           style={{
             background: darkTheme ? "#815CCE" : "#7480ff",
             color: darkTheme ? "#fff" : "#fff",

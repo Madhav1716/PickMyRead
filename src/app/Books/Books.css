@@ -5,26 +5,6 @@
   height: 100vh; /* Set height to 100% of viewport height */
 }
 
-.telegram-icon {
-  font-size: 30px; /* Adjust the size as needed */
-}
-
-.logo {
-  font-size: 33px;
-  font-family: "Playfair Display", serif;
-  font-weight: 600;
-}
-
-.navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between !important;
-}
-
-.telegram-icon {
-  font-size: 30px; /* Adjust the size as needed */
-}
-
 .logo {
   font-size: 33px;
   font-family: "Playfair Display", serif;
@@ -57,6 +37,7 @@
   padding: 8px;
   width: 27%;
   font-family: "Playfair Display", serif;
+  border: 1px solid black;
 }
 
 .product-image {
@@ -69,12 +50,13 @@
 
 .product-title {
   font-size: 1.5rem;
-  margin-bottom: 5px;
+  font-weight: 500;
 }
 
 .product-author {
   font-style: italic;
   margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .product-rating {
@@ -91,8 +73,16 @@
 }
 
 .button-group button {
-  width: 45%;
+  width: 43%;
   font-size: 14px;
+}
+.button-group Link {
+  width: 32%;
+  font-size: 14px;
+}
+
+.btn {
+  width: 53%;
 }
 
 .product-button {
@@ -119,4 +109,10 @@
 
 .product-button:focus {
   outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .product-card {
+    width: 90%;
+  }
 }

@@ -1,0 +1,20 @@
+.telegram-icon {
+  font-size: 30px; /* Adjust the size as needed */
+}
+
+.logo {
+  font-size: 33px;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between !important;
+  height: 12vh;
+  margin-top: 1%;
+
+  /* padding-left: 3.9%;
+  padding-right: 1%; */
+}

@@ -19,6 +19,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between !important;
+  height: 12vh;
+  margin-top: 1%;
   /* padding-left: 3.9%;
   padding-right: 1%; */
 }
@@ -93,8 +95,44 @@
   }
 }
 
-.btn {
-  margin-top: 1%;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+.btn-Start {
+  width: 16%;
+  font-family: "Playfair Display", serif;
   font-size: 15px;
+  margin-top: 1%;
+}
+
+.search-result {
+  width: 100%;
+  height: 29%;
+  background-color: white;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: flex-start;
+}
+
+.search-results {
+  overflow: scroll;
+}
+
+.book-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.book-details {
+  margin-left: 5%;
+}
+.book-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(41, 41, 41);
+}
+.author {
+  font-size: 1em;
+  color: #666;
 }

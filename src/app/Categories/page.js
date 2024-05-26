@@ -1,14 +1,19 @@
+// pages/Categories.js
 "use client";
-
-import React, { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.css";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import Searchbar from "../components/SearchBar";
+import Navbar from "../components/Navbar";
 import "./Category.css";
+import "@fortawesome/fontawesome-free/css/all.css";
+import { db } from "../firebaseConfig"; // Adjust path as needed
 import Link from "next/link";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 
 export default function Categories() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [showMoreCategories, setShowMoreCategories] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // Search term state
+  const [searchResults, setSearchResults] = useState([]); // Search results state
 
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
@@ -26,49 +31,73 @@ export default function Categories() {
     setShowMoreCategories(!showMoreCategories);
   };
 
-  return (
-    <div className="main-container">
-      <div className="navbar">
-        <div className="telegram-icon">
-          <a href="https://t.me/DealHuntersDaily">
-            <i className="fab fa-telegram"></i>
-          </a>
-        </div>
-        <a className="logo">BOOKSAGA</a>
-        <label className="swap swap-rotate">
-          {/* this hidden checkbox controls the state */}
-          <input
-            type="checkbox"
-            className="theme-controller"
-            value="synthwave"
-            onChange={toggleTheme} // Call toggleTheme function when checkbox changes
-          />
-          {/* sun icon */}
-          <svg
-            className="swap-off fill-current w-8 h-10"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24">
-            <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
-          </svg>
+  useEffect(() => {
+    const booksRef = collection(db, "books");
+    const trimmedSearchTerm = searchTerm.trim().toLowerCase();
 
-          <svg
-            className="swap-on fill-current w-8 h-10"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24">
-            <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
-          </svg>
-        </label>
-      </div>
-      <div className="SearchArea">
-        <Image src="/search.jpg" width={5000} height={550} alt="book" />
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search..."
-            className={`search ${darkTheme ? "light-theme" : "dark-theme"}`}
-          />
-        </div>
-      </div>
+    const q = query(
+      booksRef,
+      searchTerm.length > 0 ? [] : [],
+      orderBy("Book_Name", "asc")
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const books = [];
+      snapshot.forEach((doc) => {
+        books.push({ id: doc.id, ...doc.data() });
+      });
+
+      // Client-side filtering
+      const filteredResults = books.filter((book) => {
+        const lowerSearchTerm = trimmedSearchTerm.toLowerCase();
+        return (
+          book.Author_Name.toLowerCase().includes(lowerSearchTerm) ||
+          book.Book_Name.toLowerCase().includes(lowerSearchTerm) ||
+          book.Category.toLowerCase().includes(lowerSearchTerm)
+        );
+      });
+
+      // Custom sorting: Move exact matches to the top
+      filteredResults.sort((a, b) => {
+        const aMatch = a.Book_Name.toLowerCase() === trimmedSearchTerm;
+        const bMatch = b.Book_Name.toLowerCase() === trimmedSearchTerm;
+
+        // If both are exact matches, sort alphabetically
+        if (aMatch && bMatch) {
+          return a.Book_Name.localeCompare(b.Book_Name);
+        }
+
+        // If only one is an exact match, prioritize it
+        if (aMatch && !bMatch) {
+          return -1;
+        }
+
+        if (!aMatch && bMatch) {
+          return 1;
+        }
+
+        // If neither is an exact match, sort alphabetically
+        return a.Book_Name.localeCompare(b.Book_Name);
+      });
+
+      setSearchResults(filteredResults);
+    });
+
+    return unsubscribe;
+  }, [searchTerm]);
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  return (
+    <div className={`main-container ${darkTheme ? "dark-mode" : ""}`}>
+      <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />
+      <Searchbar
+        darkTheme={darkTheme}
+        searchTerm={searchTerm}
+        handleChange={handleChange}
+      />
       <div className="Category-Area">
         <div className="Category-heading">
           <h1>Popular Subjects</h1>
@@ -76,21 +105,21 @@ export default function Categories() {
 
         <div className="Category-group">
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Sci-Fi" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
             Sci-Fi
           </Link>
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Love Story" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
             Love Story
           </Link>
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Novels" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
@@ -99,21 +128,21 @@ export default function Categories() {
         </div>
         <div className="Category-group">
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Biography" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
             Biography
           </Link>
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Time Travel" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
             Time Travel
           </Link>
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Fiction" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
@@ -122,21 +151,24 @@ export default function Categories() {
         </div>
         <div className="Category-group">
           <Link
-            href="/Books"
+            href={{
+              pathname: "/Books",
+              query: { Category: "Self Improvement" },
+            }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
             Self Improvement
           </Link>
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Comics" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
             Comics
           </Link>
           <Link
-            href="/Books"
+            href={{ pathname: "/Books", query: { Category: "Horror" } }}
             className={`btn btn-outline ${
               darkTheme ? "light-theme" : "dark-theme"
             }`}>
@@ -147,45 +179,44 @@ export default function Categories() {
           <>
             <div className="Category-group">
               <Link
-                href="/Books"
+                href={{ pathname: "/Books", query: { Category: "Thriller" } }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
                 Thriller
               </Link>
               <Link
-                href="/Books"
+                href={{ pathname: "/Books", query: { Category: "Mystery" } }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
                 Mystery
               </Link>
               <Link
-                href="/Books"
+                href={{ pathname: "/Books", query: { Category: "Cooking" } }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
                 Cooking
               </Link>
             </div>
-            {/* Add another div with more categories here */}
             <div className="Category-group">
               <Link
-                href="/Books"
+                href={{ pathname: "/Books", query: { Category: "Spiritual" } }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
                 Spiritual
               </Link>
               <Link
-                href="/Books"
+                href={{ pathname: "/Books", query: { Category: "Business" } }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
                 Business
               </Link>
               <Link
-                href="/Books"
+                href={{ pathname: "/Books", query: { Category: "Fantasy" } }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
@@ -198,7 +229,6 @@ export default function Categories() {
         {!showMoreCategories && (
           <div className="Show-More">
             <button
-              href="/Books"
               className="btn btn-wide btn-primary"
               style={{
                 background: darkTheme ? "#815CCE" : "#7480ff",
