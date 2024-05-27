@@ -1,7 +1,9 @@
+import React, { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
-const inter = Inter({ subsets: ["latin"] });
 import Head from "next/head";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = { title: "Pick My Read" };
 
@@ -11,7 +13,9 @@ export default function RootLayout({ children }) {
       <Head>
         <title>PickMyRead</title>
       </Head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      </body>
     </html>
   );
 }
