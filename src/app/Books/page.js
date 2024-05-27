@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -60,7 +60,10 @@ function Books() {
 
   return (
     <div className="main-container">
-      <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />{" "}
+      </Suspense>
+
       <div className="Container">
         {loading ? (
           <div className="loading-indicator">Loading books...</div>
