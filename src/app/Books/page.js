@@ -59,53 +59,55 @@ function Books() {
   };
 
   return (
-    <div className="main-container">
-      <Suspense fallback={<div>Loading...</div>}>
-        <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />{" "}
-      </Suspense>
+    <Suspense>
+      <div className="main-container">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />{" "}
+        </Suspense>
 
-      <div className="Container">
-        {loading ? (
-          <div className="loading-indicator">Loading books...</div>
-        ) : error ? (
-          <div className="error-message">
-            Error fetching books: {error.message}
-          </div>
-        ) : (
-          books.map((book) => (
-            <div className="product-card " key={book.id}>
-              <div className="product-image">
-                <Image
-                  src={book.Image}
-                  alt="Book Cover"
-                  width={500}
-                  height={800}
-                />
-              </div>
-              <div className="product-info">
-                <h2 className="product-title">{book.Book_Name}</h2>
-                <p className="product-author">by {book.Author_Name}</p>
-                <p className="product-category">Category: {book.Category}</p>
-                <p className="product-category">
-                  Description: {book.Description.substring(0, 80)}...
-                </p>
-                <div className="product-rating">Rating: ⭐⭐⭐⭐⭐</div>
-                <div className="button-group">
-                  <button className="btn btn-outline btn-accent">
-                    <a href={book.URL}>Buy Now</a>
-                  </button>
-                  <Link
-                    href={{ pathname: `/Books/${book.id}` }}
-                    className="btn btn-outline btn-primary">
-                    Learn More
-                  </Link>
+        <div className="Container">
+          {loading ? (
+            <div className="loading-indicator">Loading books...</div>
+          ) : error ? (
+            <div className="error-message">
+              Error fetching books: {error.message}
+            </div>
+          ) : (
+            books.map((book) => (
+              <div className="product-card " key={book.id}>
+                <div className="product-image">
+                  <Image
+                    src={book.Image}
+                    alt="Book Cover"
+                    width={500}
+                    height={800}
+                  />
+                </div>
+                <div className="product-info">
+                  <h2 className="product-title">{book.Book_Name}</h2>
+                  <p className="product-author">by {book.Author_Name}</p>
+                  <p className="product-category">Category: {book.Category}</p>
+                  <p className="product-category">
+                    Description: {book.Description.substring(0, 80)}...
+                  </p>
+                  <div className="product-rating">Rating: ⭐⭐⭐⭐⭐</div>
+                  <div className="button-group">
+                    <button className="btn btn-outline btn-accent">
+                      <a href={book.URL}>Buy Now</a>
+                    </button>
+                    <Link
+                      href={{ pathname: `/Books/${book.id}` }}
+                      className="btn btn-outline btn-primary">
+                      Learn More
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
 
