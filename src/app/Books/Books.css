@@ -1,0 +1,118 @@
+.main-container {
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box; /* Include padding in the width calculation */
+  height: 100vh; /* Set height to 100% of viewport height */
+}
+
+.logo {
+  font-size: 33px;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.dark-theme {
+  border: 1px solid #ccc;
+}
+
+.light-theme {
+  border: 1px solid #40513b;
+}
+
+/* Product card styles */
+
+.Container {
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  margin-top: 1%;
+  border-radius: 8px;
+  padding: 8px;
+  width: 27%;
+  font-family: "Playfair Display", serif;
+  border: 1px solid black;
+}
+
+.product-image {
+  margin-right: 20px;
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.product-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.product-author {
+  font-style: italic;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.product-rating {
+  margin-bottom: 10px;
+}
+
+.product-description {
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button {
+  width: 43%;
+  font-size: 14px;
+}
+.button-group Link {
+  width: 32%;
+  font-size: 14px;
+}
+
+.btn {
+  width: 53%;
+}
+
+.product-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.learn-more-button {
+  background-color: #008cba; /* Blue */
+  color: white;
+}
+
+.product-button:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+.product-button:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 768px) {
+  .product-card {
+    width: 90%;
+  }
+}
