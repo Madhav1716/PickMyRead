@@ -5,14 +5,20 @@
 }
 
 .product-details {
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 1%;
   display: flex !important;
   width: 50%;
-  font-size: 20px !important;
+  font-size: 1.2rem; /* Use rem for better responsiveness */
+  flex-direction: row; /* Align items side by side */
+}
+
+.product-image {
+  flex: 1;
 }
 
 .product-info {
+  flex: 2;
   margin-left: 3%;
 }
 
@@ -20,6 +26,76 @@
   margin-top: 5%;
   display: flex;
   justify-content: center;
+}
+
+.toggle-button {
+  color: #3498db; /* Change this to your desired color */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.toggle-button:hover {
+  color: #2980b9; /* Optional: Change color on hover */
+}
+
+.btn {
+  font-size: 18px;
+}
+
+/* Responsive styles for tablets and smaller screens */
+@media only screen and (max-width: 1024px) {
+  .product-details {
+    width: 75%;
+  }
+
+  .product-info {
+    margin-left: 2%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .product-details {
+    width: 100%;
+    font-size: 1rem; /* Adjust font size for smaller screens */
+    flex-direction: row; /* Maintain side by side layout for tablets */
+  }
+
+  .product-info {
+    margin-left: 0;
+  }
+
+  .product-details,
+  .product-info {
+    padding: 2%; /* Adjust padding for smaller screens */
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .toggle-button {
+    font-size: 1rem;
+    margin-left: 0;
+  }
+
+  .btn {
+    font-size: 16px;
+  }
+
+  .product-details {
+    flex-direction: column; /* Stack items vertically for mobile */
+    width: 100%;
+    padding: 3%;
+  }
+
+  .product-image {
+    margin-bottom: 1rem; /* Add some space between image and content */
+  }
+
+  .product-info {
+    margin-left: 0;
+  }
 }
 
 .telegram-icon {
@@ -38,21 +114,7 @@
   justify-content: space-between !important;
   height: 12vh;
   margin-top: 1%;
-}
 
-.toggle-button {
-  color: #3498db; /* Change this to your desired color */
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.toggle-button:hover {
-  color: #2980b9; /* Optional: Change color on hover */
-}
-
-.btn {
-  font-size: 18px;
+  /* padding-left: 3.9%;
+  padding-right: 1%; */
 }
