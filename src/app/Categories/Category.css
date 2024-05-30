@@ -50,7 +50,8 @@
 .btn:hover {
   background-color: #a6adbb;
 }
-.btn {
+
+.Category-group Link {
   width: 20%;
   font-family: "Playfair Display", serif;
   font-size: 18px;
@@ -63,13 +64,13 @@
 
 /* Media Queries for responsiveness */
 @media screen and (max-width: 768px) {
-  .btn {
+  .Category-group Link {
     width: 40%;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .btn {
+  .Category-group Link {
     width: 60%;
   }
 }
@@ -81,7 +82,7 @@
     align-items: center;
   }
 
-  .btn {
+  .Category-group Link {
     width: 80%; /* Adjust width as needed */
     margin: 1% auto; /* Center-align and add margin */
   }

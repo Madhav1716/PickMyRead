@@ -89,7 +89,6 @@ export default function Categories() {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-
   return (
     <div className={`main-container ${darkTheme ? "dark-mode" : ""}`}>
       <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />
@@ -100,7 +99,9 @@ export default function Categories() {
       />
       <div className="Category-Area">
         <div className="Category-heading">
-          <h1>Popular Subjects</h1>
+          {/* SEO-friendly H1 with relevant keywords */}
+          <h1>Explore a Wide Range of Book Categories | Pick My Read</h1>{" "}
+          {/* This line has changed */}
         </div>
 
         <div className="Category-group">

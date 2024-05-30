@@ -1,5 +1,6 @@
 .main-container {
   width: 100%;
+
   overflow-x: hidden;
   box-sizing: border-box; /* Include padding in the width calculation */
   height: 100vh; /* Set height to 100% of viewport height */
@@ -35,7 +36,7 @@
   margin-top: 1%;
   border-radius: 8px;
   padding: 8px;
-  width: 27%;
+  width: 31%;
   font-family: "Playfair Display", serif;
   border: 1px solid black;
 }
@@ -73,16 +74,17 @@
 }
 
 .button-group button {
-  width: 43%;
+  width: auto;
+  min-width: 30px;
   font-size: 14px;
-}
-.button-group Link {
-  width: 32%;
-  font-size: 14px;
+  margin-right: 10px; /* Add margin between buttons */
 }
 
-.btn {
-  width: 53%;
+.button-group Link {
+  width: auto;
+  min-width: 30px;
+  font-size: 14px;
+  margin-right: 10px; /* Add margin between buttons */
 }
 
 .product-button {
@@ -113,6 +115,19 @@
 
 @media screen and (max-width: 768px) {
   .product-card {
-    width: 90%;
+    width: 100%;
+  }
+  .button-group button {
+    width: auto;
+    min-width: 10px;
+    font-size: 14px;
+    margin-right: 10px; /* Add margin between buttons */
+  }
+
+  .button-group Link {
+    width: auto;
+    min-width: 10px;
+    font-size: 14px;
+    margin-right: 10px; /* Add margin between buttons */
   }
 }

@@ -1,14 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Image from "next/image";
 import Link from "next/link";
+import { getMetaTagsFromContent, getTitleFromContent } from "./seoUtils"; // Import custom SEO utility functions
 
 function Home() {
   const [darkTheme, setDarkTheme] = useState(false);
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
 
+  useEffect(() => {
+    // Fetch SEO data (meta title and description) from CMS or API (replace with your implementation)
+    const seoData = getMetaTagsFromContent("homepage"); // Example usage
+    setMetaTitle(seoData.title);
+    setMetaDescription(seoData.description);
+  }, []);
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
     // Update theme properties
@@ -65,12 +74,21 @@ function Home() {
       </div>
       <div className="image-container">
         <div className="roundedImage">
-          <Image src="/book.png" width={450} height={550} alt="book" />
+          <Image
+            src="/book.png"
+            width={450}
+            height={550}
+            alt="Book to discover new reads"
+          />{" "}
+          {/* Add descriptive alt text */}
         </div>
       </div>
       <div className="Heading">
         <h1 className="Welcome">Welcome to PickMyRead</h1>
-        <h3 className="Tagline">Your Gateway to Literary Exploration!</h3>
+        <h2 className="Tagline">
+          Your One-Stop Shop for Unforgettable Book Adventures!{" "}
+          {/* Improved tagline */}
+        </h2>
         <Link
           href="/Categories"
           className="btn btn-wide btn-primary btn-Start"
