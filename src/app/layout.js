@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
+import GoogleAdsense from "./components/GoogleAdsense";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,15 +21,11 @@ export default function RootLayout({ children }) {
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        {/* Add any other meta tags here */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9168362458076214"
-          crossOrigin="anonymous"></script>
       </Head>
       <body className={inter.className}>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
       </body>
+      <GoogleAdsense pId="（Adsense@ID）" />
     </html>
   );
 }

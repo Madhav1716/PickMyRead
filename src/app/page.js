@@ -5,19 +5,12 @@ import "./style.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Image from "next/image";
 import Link from "next/link";
-import { getMetaTagsFromContent, getTitleFromContent } from "./seoUtils"; // Import custom SEO utility functions
 
 function Home() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
 
-  useEffect(() => {
-    // Fetch SEO data (meta title and description) from CMS or API (replace with your implementation)
-    const seoData = getMetaTagsFromContent("homepage"); // Example usage
-    setMetaTitle(seoData.title);
-    setMetaDescription(seoData.description);
-  }, []);
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
     // Update theme properties
