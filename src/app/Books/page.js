@@ -3,6 +3,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import Head from "next/head"; // Import Head for managing document head
 import "./Books.css";
 import { db } from "../firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -59,55 +60,81 @@ function Books() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="main-container">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />{" "}
-        </Suspense>
-
-        <div className="Container">
-          {loading ? (
-            <div className="loading-indicator">Loading books...</div>
-          ) : error ? (
-            <div className="error-message">
-              Error fetching books: {error.message}
-            </div>
-          ) : (
-            books.map((book) => (
-              <div className="product-card " key={book.id}>
-                <div className="product-image">
-                  <Image
-                    src={book.Image}
-                    alt="Book Cover"
-                    width={500}
-                    height={800}
-                  />
-                </div>
-                <div className="product-info">
-                  <h2 className="product-title">{book.Book_Name}</h2>
-                  <p className="product-author">by {book.Author_Name}</p>
-                  <p className="product-category">Category: {book.Category}</p>
-                  <p className="product-category">
-                    Description: {book.Description.substring(0, 80)}...
-                  </p>
-                  <div className="product-rating">Rating: ⭐⭐⭐⭐⭐</div>
-                  <div className="button-group">
-                    <button className="btn btn-outline btn-accent">
-                      <a href={book.URL}>Buy Now</a>
-                    </button>
-                    <Link
-                      href={{ pathname: `/Books/${book.id}` }}
-                      className="btn btn-outline btn-primary">
-                      Learn More
-                    </Link>
+    <>
+      <Head>
+        <title>Discover and Buy Books | PickMyRead.com</title>
+        <meta
+          name="description"
+          content="Explore our vast collection of books. Find the latest releases, bestsellers, and more on PickMyRead.com. Buy books online and enjoy fast delivery."
+        />
+        <meta
+          name="keywords"
+          content="books, buy books, book store, bestsellers, new releases"
+        />
+        <link rel="canonical" href="https://www.pickmyread.com/books" />
+        <meta
+          property="og:title"
+          content="Discover and Buy Books | PickMyRead.com"
+        />
+        <meta
+          property="og:description"
+          content="Explore our vast collection of books. Find the latest releases, bestsellers, and more on PickMyRead.com. Buy books online and enjoy fast delivery."
+        />
+        <meta property="og:url" content="https://www.pickmyread.com/books" />
+        <meta property="og:type" content="website" />
+      </Head>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="main-container">
+          <Suspense fallback={<div>Loading...</div>}>
+            <Navbar toggleTheme={toggleTheme} darkTheme={darkTheme} />{" "}
+          </Suspense>
+          <div className="Container">
+            <h1>Explore Our Book Collection</h1>
+            {loading ? (
+              <div className="loading-indicator">Loading books...</div>
+            ) : error ? (
+              <div className="error-message">
+                Error fetching books: {error.message}
+              </div>
+            ) : (
+              books.map((book) => (
+                <div className="product-card" key={book.id}>
+                  <div className="product-image">
+                    <Image
+                      src={book.Image}
+                      alt="Book Cover"
+                      width={500}
+                      height={800}
+                    />
+                  </div>
+                  <div className="product-info">
+                    <h2 className="product-title">{book.Book_Name}</h2>
+                    <p className="product-author">by {book.Author_Name}</p>
+                    <p className="product-category">
+                      Category: {book.Category}
+                    </p>
+                    <p className="product-description">
+                      Description: {book.Description.substring(0, 80)}...
+                    </p>
+                    <div className="product-rating">Rating: ⭐⭐⭐⭐⭐</div>
+                    <div className="button-group">
+                      <button className="btn btn-outline btn-accent">
+                        <a href={book.URL}>Buy Now</a>
+                      </button>
+                      <Link
+                        href={{ pathname: `/Books/${book.id}` }}
+                        className="btn btn-outline btn-primary">
+                        Learn More
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
         </div>
-      </div>
-    </Suspense>
+      </Suspense>
+    </>
   );
 }
 
