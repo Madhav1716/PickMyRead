@@ -5,6 +5,7 @@ import "./style.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Image from "next/image";
 import Link from "next/link";
+import Analytics from "@vercel/analytics/react";
 
 function Home() {
   const [darkTheme, setDarkTheme] = useState(false);
@@ -92,6 +93,7 @@ function Home() {
           Start Exploring
         </Link>
       </div>
+      <Analytics />
     </div>
   );
 }
