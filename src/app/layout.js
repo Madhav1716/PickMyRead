@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
-import AdSense from "./components/AdSense";
+// import AdSense from "./components/AdSense";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
       </body>
-      <AdSense pId="（Adsense@ID）" />
+      {/* <AdSense pId="（Adsense@ID）" /> */}
     </html>
   );
 }
