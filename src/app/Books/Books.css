@@ -6,6 +6,9 @@
   height: 100vh; /* Set height to 100% of viewport height */
 }
 
+.main-title {
+  display: flex;
+}
 .logo {
   font-size: 33px;
   font-family: "Playfair Display", serif;
@@ -27,6 +30,13 @@
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.Cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 

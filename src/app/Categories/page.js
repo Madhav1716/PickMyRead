@@ -198,7 +198,7 @@ export default function Categories() {
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
-                Cooking
+                Exploration
               </Link>
             </div>
             <div className="Category-group">
@@ -222,6 +222,15 @@ export default function Categories() {
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>
                 Fantasy
+              </Link>
+            </div>
+            <div className="Category-group">
+              <Link
+                href={{ pathname: "/Books", query: { Category: "Spiritual" } }}
+                className={`btn btn-outline ${
+                  darkTheme ? "light-theme" : "dark-theme"
+                }`}>
+                Cooking
               </Link>
             </div>
           </>
