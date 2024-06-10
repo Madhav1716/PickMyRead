@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import AdSense from "./components/AdSense";
+import Adsense from "./components/Adsense";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
       <head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <AdSense />
+        <Adsense />
       </head>
       <body className={inter.className}>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
