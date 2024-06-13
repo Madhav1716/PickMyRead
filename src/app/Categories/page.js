@@ -194,7 +194,10 @@ export default function Categories() {
                 Mystery
               </Link>
               <Link
-                href={{ pathname: "/Books", query: { Category: "Cooking" } }}
+                href={{
+                  pathname: "/Books",
+                  query: { Category: "Exploration" },
+                }}
                 className={`btn btn-outline ${
                   darkTheme ? "light-theme" : "dark-theme"
                 }`}>

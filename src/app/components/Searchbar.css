@@ -1,5 +1,9 @@
 /* SearchBar.css */
 
+.Container {
+  position: relative;
+}
+
 .search-area {
   position: relative;
   text-align: center;
@@ -173,19 +177,21 @@
 }
 
 .search-bar {
-  position: absolute;
-  top: 32%;
-  border-radius: 30px; /* Adjust the value to control the roundness */
-  width: 90%; /* Adjusted width for responsiveness */
-  max-width: 600px; /* Limiting maximum width */
-  left: 50%;
-  transform: translateX(-50%);
+  border-radius: 30px;
+  width: 90%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
-
+.Search-bar-Area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  top: 14vh;
+  width: 100%;
+}
 .search {
   background-color: #1d232a;
   width: 100%;
@@ -301,7 +307,8 @@
 
 .searchResultsContainer {
   background-color: white;
-  width: 50vh;
+  width: 86%;
+  height: 100%;
 }
 
 .searchResultsContainer:hover {
